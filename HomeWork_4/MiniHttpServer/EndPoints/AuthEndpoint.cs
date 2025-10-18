@@ -10,7 +10,7 @@ internal class AuthEndpoint
     [HttpGet]
     public string LoginPage()
     {
-        // NOT INDEX
+        // сделать
         return "login.html";
     }
 
@@ -31,7 +31,6 @@ internal class AuthEndpoint
     {
         // Отправка на почту email указанного email и password
         EmailService.SendEmail(to, title, message);
-
     }
 
 }

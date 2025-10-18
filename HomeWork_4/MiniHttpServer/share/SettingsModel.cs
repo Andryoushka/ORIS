@@ -60,7 +60,16 @@ public class AppSettings
 {
     public string StaticDirectoryPath { get; set; }
     [RegularExpression(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", ErrorMessage = "домен указан неверно.")]
+    
     public string Domain { get; set; }
     [RegularExpression(@"^\d{4}$", ErrorMessage = "порт указан неверно.")]
+    
     public string Port { get; set; }
+    public string SenderEmail { get; set; }
+    public string SenderName { get; set; }
+    public string SenderPassword { get; set; }
+    public string SMPTserver { get; set; }
+
+    [RegularExpression(@"\d{1,3}", ErrorMessage = "Порт SMTP указан неверно.")]
+    public int SMTPport { get; set; }
 }

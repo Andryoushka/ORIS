@@ -47,10 +47,14 @@
     <None Update="Static\Login Form\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Static\Zip\project.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Static\Indexes\" />
+    <Folder Include="Static\Zip\" />
   </ItemGroup>
 
 </Project>

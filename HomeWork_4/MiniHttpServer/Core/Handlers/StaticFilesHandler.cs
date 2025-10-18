@@ -25,29 +25,6 @@ public class StaticFilesHandler : Handler
                if (path == null || path == "/")
                 buffer = GetResponseBytes.Invoke($"Public/index.html");
             */
-
-            /*buffer = GetResponseBytes.Invoke(path);
-
-            response.ContentType = MiniHttpServer.Shared.ContentType.GetContentType(path.Trim('/'));
-
-            if (buffer == null)
-            {
-                response.StatusCode = 404;
-                string errorText = "<html><body>404 - Not Found</html></body>";
-                buffer = Encoding.UTF8.GetBytes(errorText);
-            }
-
-            response.ContentLength64 = buffer.Length;
-
-            using Stream output = response.OutputStream;
-            await output.WriteAsync(buffer, 0, buffer.Length);
-            await output.FlushAsync();
-
-            if (response.StatusCode == 200)
-                Console.WriteLine($"Запрос обработан: {request.Url.AbsolutePath} - Status: {response.StatusCode}");
-            else
-                Console.WriteLine($"Ошибка запроса: {request.Url.AbsolutePath} - Status: {response.StatusCode}");
-*/
         }
         // передача запроса дальше по цепи при наличии в ней обработчиков
         else if (Successor != null)

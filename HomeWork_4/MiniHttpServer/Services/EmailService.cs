@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MiniHttpServer.share;
 
 namespace MiniHttpServer.Services;
 
@@ -18,10 +19,10 @@ public static class EmailService
     /// <param name="message">Содержимое письма</param>
     public static void SendEmail(string to, string subject, string message)
     {
-        // TODO: ДЗ smtpClient
+        var settings = SettingsManager.Instance.Settings;
 
         // отправитель - устанавливаем адрес и отображаемое в письме имя
-        MailAddress from = new MailAddress("dawidov.andrej2011@yandex.ru", "Andryoushka");
+        MailAddress from = new MailAddress(settings.SenderEmail, settings.SenderName);
         // кому отправляем
         MailAddress toUser = new MailAddress(to);
         // создаем объект сообщения
@@ -29,13 +30,14 @@ public static class EmailService
         // тема письма
         m.Subject = subject;
         // текст письма
-        m.Body = $"<h2>{message}</h2>";
+        m.Body = message;
+        m.Attachments.Add(new Attachment("./Static/Zip/project.zip"));
         // письмо представляет код html
         m.IsBodyHtml = true;
         // адрес smtp-сервера и порт, с которого будем отправлять письмо
-        SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 587);
+        SmtpClient smtp = new SmtpClient(settings.SMPTserver, settings.SMTPport);
         // логин и пароль
-        smtp.Credentials = new NetworkCredential("dawidov.andrej2011@yandex.ru", "ypauztvyfwvywmrt");
+        smtp.Credentials = new NetworkCredential(settings.SenderEmail, settings.SenderPassword);
         smtp.EnableSsl = true;
         smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
         smtp.UseDefaultCredentials = false;

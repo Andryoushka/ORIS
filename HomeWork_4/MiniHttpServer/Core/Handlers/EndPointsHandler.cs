@@ -47,15 +47,18 @@ internal class EndpointsHandler : Handler
             switch (method.Name)
             {
                 //< Обработка ошибок >//
+                // < Вынести всё в цикл поиска метода по имени , затем поиск аргументов по имени > //
                 case "Login":
                     method.Invoke(Activator.CreateInstance(endpont)
                         , new object[] { data["email"], data["password"] });
                     break;
 
                 case "SendEmail":
+                    var mesage = 
+@"<h1>Давыдов Андрей</h1>
+<h2>11-408</h2>";
                     method.Invoke(Activator.CreateInstance(endpont)
-                        , new object[3] { data["email"], "Тест", "Fuck German" });
-                    //context.Response.Redirect();
+                        , new object[3] { data["email"], "Тест", mesage });
                     context.Response.StatusCode = (int)HttpStatusCode.OK;
                     context.Response.OutputStream.Close();
                     break;
@@ -72,7 +75,6 @@ internal class EndpointsHandler : Handler
                     break;
             }
 
-            //var ret = method.Invoke(Activator.CreateInstance(endpont), null);
             Console.WriteLine($"Метод -{method.Name}- выполнен!");
 
         }
