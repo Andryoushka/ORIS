@@ -11,7 +11,8 @@ public sealed class HtmlTemplateRenderer_Test
     public void RenderFromString_OneProp()
     {
         var template = new HtmlTemplateRenderer();
-        template.Objects.Add(
+        var dic = new Dictionary<string, object>();
+        dic.Add(
             "user",
             new User()
             {
@@ -27,7 +28,7 @@ public sealed class HtmlTemplateRenderer_Test
         var html = @"<p>${user.Name} - ${user.Passport.Code}</p>";
         var expected = @"<p>Berserk - 1997</p>";
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         Assert.AreEqual( expected, result );
     }
 
@@ -42,10 +43,11 @@ public sealed class HtmlTemplateRenderer_Test
         };
 
         var template = new HtmlTemplateRenderer();
-        template.Objects.Add("user", user);
+        var dic = new Dictionary<string, object>();
+        dic.Add("user", user);
 
         var html = @"${user.Passport.Code}";
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected = "123";
 
         Assert.AreEqual(expected, result, false);
@@ -57,14 +59,15 @@ public sealed class HtmlTemplateRenderer_Test
         var data = new List<int> { 1, 2, 3 };
 
         var template = new HtmlTemplateRenderer();
-        template.Objects.Add("data", data);
+        var dic = new Dictionary<string, object>();
+        dic.Add("data", data);
 
         var html =
 @"$foreach(var item in data)
 <p>${item} - элемент</p>
 $endfor";
         
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected =
 @"<p>1 - элемент</p>
 <p>2 - элемент</p>
@@ -83,10 +86,11 @@ $endfor";
         };
         var html =
 @"Пользователь является:$if(user.Hyligan)хулиганом$elseпослушным$endif";
+        var dic = new Dictionary<string, object>();
 
-        template.Objects.Add("user", user);
+        dic.Add("user", user);
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected =
 @"Пользователь является:послушным";
 
@@ -110,6 +114,8 @@ ${item}
 $endfor";
 
         var template = new HtmlTemplateRenderer();
+        var dic = new Dictionary<string, object>();
+
 
         var user = new User()
         {
@@ -118,9 +124,9 @@ $endfor";
             Hyligan = false
         };
 
-        template.Objects.Add("user", user);
+        dic.Add("user", user);
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected =
 @"Пользователь - user
 является законопослушным гражданином.
@@ -147,6 +153,7 @@ $endif
 $endfor";
 
         var template = new HtmlTemplateRenderer();
+        var dic = new Dictionary<string, object>();
 
         var users = new List<User>()
         {
@@ -161,9 +168,9 @@ $endfor";
                 Hyligan=true
             }
         };
-        template.Objects.Add("users", users);
+        dic.Add("users", users);
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected =
 @"Список пользователей:
 user1 - послушный
@@ -180,10 +187,12 @@ user2 - хулиган";
         };
 
         var template = new HtmlTemplateRenderer();
-        template.Objects.Add("user", user);
+        var dic = new Dictionary<string, object>();
+
+        dic.Add("user", user);
 
         var html = @"${user.Passport.Code}";
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected = html;
 
         Assert.AreEqual(expected, result, false);
@@ -194,15 +203,16 @@ user2 - хулиган";
     {
         object data = null;
 
+        var dic = new Dictionary<string, object>();
         var template = new HtmlTemplateRenderer();
-        template.Objects.Add("data", data);
+        dic.Add("data", data);
 
         var html =
 @"$foreach(var item in data)
 <p>${item} - элемент</p>
 $endfor";
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected = html;
 
         Assert.AreEqual(expected, result, false);
@@ -212,6 +222,7 @@ $endfor";
     public void RenderToString_IfRender_NotRendered()
     {
         var template = new HtmlTemplateRenderer();
+        var dic = new Dictionary<string, object>();
         var user = new User()
         {
             Hyligan = false,
@@ -226,9 +237,9 @@ $else
 послушным
 $endif";
 
-        template.Objects.Add("user", user);
+        dic.Add("user", user);
 
-        var result = template.RenderFromString(html, null);
+        var result = template.RenderFromString(html, dic);
         var expected = html;
 
         Assert.AreEqual(expected, result, false);
@@ -238,6 +249,52 @@ $endif";
     public void RenderFromFile()
     {
         var h = new HtmlTemplateRenderer();
-        var str = h.RenderFromFile("./Static/Index2.html", null);
+        var dic = new Dictionary<string, object>();
+        dic.Add("users", new User[]
+        {
+            new User()
+            {
+                Hyligan = true,
+                Name = "Andre"
+            }
+            ,new User()
+            {
+                Hyligan = false
+                ,Name = "Edik"
+            }
+        });
+        var result = h.RenderFromFile("./Static/Index2.html", dic);
+        var expected =
+@"Пользователь Andre является : хулиган
+Пользователь Edik является : законопослушным гражданином";
+
+        Assert.AreEqual(expected, result, false);
+    }
+
+    [TestMethod]
+    public void RenderToFile()
+    {
+        var h = new HtmlTemplateRenderer();
+        var dic = new Dictionary<string, object>();
+        dic.Add("users", new User[]
+        {
+            new User()
+            {
+                Hyligan = true,
+                Name = "Andre"
+            }
+            ,new User()
+            {
+                Hyligan = false
+                ,Name = "Edik"
+            }
+        });
+        var result = h.RenderToFile("./Static/Index2.html", "./Static/Index2_rendered.html", dic);
+        var expected =
+@"Пользователь Andre является : хулиган
+Пользователь Edik является : законопослушным гражданином";
+        var isExist = File.Exists("./Static/Index2_rendered.html");
+        Assert.AreEqual(expected, result, false);
+        Assert.IsTrue(isExist);
     }
 }
