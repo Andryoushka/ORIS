@@ -1,8 +1,8 @@
 ﻿namespace MiniHttpServer.share;
 
 using MiniHttpServer;
+using MiniHttpServer.Framework.share;
 using System.Text.RegularExpressions;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 [TestClass]
 public sealed class HtmlTemplateRenderer_Test
