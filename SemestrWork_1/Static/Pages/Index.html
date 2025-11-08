@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Style/reset.css">
+    <link rel="stylesheet" href="./Style/Main_style.css">
+    <title>RUSSPASS</title>
+</head>
+
+<body>
+
+    <div class="body_main">
+        <!-- MENU -->
+        <div class="menu">
+            <div class="menu_left_section">
+                <span style="font-size: 30px; color: red; font-weight: 800;">
+                    RUSSPASS
+                </span>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="../Icon/menu_icon.png" alt="">
+                    <span class="menu_LS_item--selected">Меню</span>
+                </div>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="../Icon/coin_icon.png" alt="">
+                    Бонусы
+                </div>
+            </div>
+
+            <div class="menu_right_section">
+                <img class="menu_user_icon" src="../Icon/search_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/heart_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/user_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/ru_icon.png" alt="">
+            </div>
+        </div>
+
+        <!-- PATH -->
+        <div>
+            <span class="site_path">Главная / Туры</span>
+        </div>
+
+        <!-- CURRENT PATH -->
+        <div style="width: 100%; height: 36px; margin-top: 15px; margin-bottom: 15px;">
+            <span class="site_path_current">Туры</span>
+        </div>
+
+        <!-- SEARCH EVENT -->
+        <div class="search_events">
+            <input class="event_input_search" type="text" name="" id="" placeholder="Найти место, город или событие...">
+            <button class="select_button" style="width: 252px;"><img class="event_icons" src="../Icon/shedule_icon.png" alt="">Дата</button>
+            <button class="action_button" style="width: 82px; height: 48px; margin: 0;">Найти</button>
+        </div>
+
+        <!-- EVENT -->
+        <div class="events_field">
+
+            <!-- FILTER EVENTs -->
+            <div class="filter">
+                <div style="font-size: 30px; margin-bottom: 20px; font-weight: bold;">Фильтры</div>
+                <div class="filter_settings">
+                    <div> <!-- Maybe Form -->
+                        <div class="filter_type_text">
+                            Популярное
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="1">
+                            <label for="1">Золотое кольцо</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="2">
+                            <label for="2">С проживанием</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="3">
+                            <label for="3">2 ночи</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="4">
+                            <label for="4">Экотуры</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="filter_type_text">
+                            Особенности
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="11">
+                            <label for="11">С перелетом</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="22">
+                            <label for="22">С проживанием</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="33">
+                            <label for="33">С питанием</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="44">
+                            <label for="44">Туры выходного дня</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="55">
+                            <label for="55">Недорогие туры</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="66">
+                            <label for="66">С детьми</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="filter_type_text">
+                            Продолжительность
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="111">
+                            <label for="111">2 ночи</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="222">
+                            <label for="222">3 ночи</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="333">
+                            <label for="333">4 ночи</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="filter_type_text">
+                            Тип
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="1111">
+                            <label for="1111">Групповые</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="2222">
+                            <label for="2222">Индивидуальные</label>
+                        </div>
+                        <div class="check_box_block">
+                            <input class="check_box" type="checkbox" name="" id="3333">
+                            <label for="3333">Автобусные</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="action_button" style="background-color: var(--site_background_color);">Сбросить всё</button>
+                        <button class="action_button">Применить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POPULAR EVENTs -->
+            <div class="events">
+                <button class="select_button" style="width: 195px; margin-left: 10px; margin-bottom: 10px; color: black !important;">
+                    <img class="event_icons" src="../Icon/popular_icon.png" alt="">
+                    Популярное
+                </button>
+                <div class="events_grid">
+
+<!--#region СОБЫТИЕ -->
+
+            <!-- CARD EVENTs -->
+            <div class="event">
+                <div class="event_image_block">
+                    <div class="event_rating">9.7</div>
+                    <div class="event_favorite"><img class="event_icons" src="../Icon/heart_icon.png" alt=""></div>
+                    <img class="event_image" src="../Кусково.png" alt="" >
+                </div>
+                <div class="event_information">
+                    <!-- TODO: Троеточие при большом тексте -->
+                    <div class="event_name">Входной билет в усадьбу Кусково</div>
+                    <div class="event_type"><img class="event_icons" src="../Icon/geo_icon.png" alt="">ул. Юности, д.2, г. Москва</div>
+                    <div class="event_type"><img class="event_icons" src="../Icon/event_type_icon.png" alt="">Музей</div>
+                    <div class="event_type"><img class="event_icons" src="../Icon/metro_icon.png" alt="">Московское</div>
+                </div>
+                <button class="action_button">Посмотреть</button>
+            </div>  
+<!--#endregion -->
+
+            <!-- PAGE SELECTOR -->
+            </div>
+                <div class="select_page">
+                    <div>
+                        <button class="action_button page">1</button>
+                        <button class="action_button page">2</button>
+                        <button class="action_button page">3</button>
+                    </div>
+                    <div>
+                        <button class="action_button">Показать ещё</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer_info">
+            <div class="footer_section_1">
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Поддержка</span>
+                    <a href="">Оставить обращение</a>
+
+                    <span class="footer_info_text_color">Контакты</span>
+                    <a href="">support@russpass.ru</a>
+                    <a href="">8 (495) 122-01-11</a>
+                    <a href="">8 (800) 300-61-22
+                    <br>(бесплатно по России)</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Пользователям</span>
+                    <a href="">О проекте</a>
+                    <a href="">Частые вопросы</a>
+                    <a href="">Войти в профиль</a>
+                    <a href="">Политика конфиденциальности</a>
+                    <a href="">Пользовательское соглашение</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Партнёрам</span>
+                    <a href="">Стать партнером</a>
+                    <a href="">Войти в личный кабинет</a>
+                    <a href="">Инструкции</a>
+                    <a href="">Оферта</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Регионам</span>
+                    <a href="">Взаимодействие с РОИВ</a>
+                </div>
+            </div>
+            <div class="footer_section_2">
+                <div>
+                    Соц сети
+                </div>
+                <div>
+                    Ссылки на приложение
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
