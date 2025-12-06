@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Admin_EventList_style.css">
+    <title>RUSSPASS - Список туров</title>
+</head>
+
+<body>
+    <div class="body_main">
+        <!-- MENU -->
+        <div class="menu">
+            <div class="menu_left_section">
+                <span style="font-size: 30px; color: red; font-weight: 800;">
+                    RUSSPASS
+                </span>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="./Icon/menu_icon.png" alt="">
+                    <span class="menu_LS_item--selected">Меню</span>
+                </div>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="./Icon/coin_icon.png" alt="">
+                    Бонусы
+                </div>
+            </div>
+
+            <div class="menu_right_section">
+                <img class="menu_user_icon" src="./Icon/search_icon.png" alt="">
+                <img class="menu_user_icon" src="./Icon/heart_icon.png" alt="">
+                <img class="menu_user_icon" src="./Icon/user_icon.png" alt="">
+                <img class="menu_user_icon" src="./Icon/ru_icon.png" alt="">
+            </div>
+        </div>
+
+        <!-- PATH -->
+        <div>
+            <span class="site_path">Главная / Админ-панель / Список туров</span>
+        </div>
+
+        <!-- CURRENT PATH -->
+        <div style="width: 100%; height: 36px; margin-top: 15px; margin-bottom: 15px;">
+            <span class="site_path_current">Список туров</span>
+        </div>
+
+        <!-- SEARCH AND FILTERS -->
+        <div class="search_filters_section">
+            <div class="search_container">
+                <input type="text" class="search_input" placeholder="Поиск по названию тура..." id="searchInput">
+                <button type="button" class="action_button" id="searchBtn">Найти</button>
+            </div>
+            
+            <div class="filters_container">
+                <select class="filter_select" id="statusFilter">
+                    <option value="">Все статусы</option>
+                    <option value="active">Активные</option>
+                    <option value="draft">Черновики</option>
+                    <option value="archived">Архивные</option>
+                </select>
+                
+                <select class="filter_select" id="typeFilter">
+                    <option value="">Все типы</option>
+                    <option value="Музей">Музей</option>
+                    <option value="Экскурсия">Экскурсия</option>
+                    <option value="Тур">Тур</option>
+                    <option value="Активный отдых">Активный отдых</option>
+                </select>
+                
+                <button type="button" class="custom_button" id="resetFiltersBtn">Сбросить фильтры</button>
+            </div>
+        </div>
+
+        <!-- TOURS LIST -->
+        <div class="tours_list_section">
+            <div class="list_header">
+                <div class="header_row">
+                    <div class="col_image">Изображение</div>
+                    <div class="col_name">Название тура</div>
+                    <div class="col_type">Тип</div>
+                    <div class="col_rating">Рейтинг</div>
+                    <div class="col_price">Цена</div>
+                    <div class="col_status">Статус</div>
+                    <div class="col_actions">Действия</div>
+                </div>
+            </div>
+
+            <div class="list_body" id="toursList">
+                <!-- Туры будут загружаться здесь динамически -->
+                <div class="loading_message">Загрузка туров...</div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination_section">
+                <div class="pagination_info">
+                    Показано <span id="showingCount">0</span> из <span id="totalCount">0</span> туров
+                </div>
+                <div class="pagination_controls">
+                    <button type="button" class="pagination_btn" id="prevPageBtn" disabled>‹ Назад</button>
+                    <div class="page_numbers" id="pageNumbers"></div>
+                    <button type="button" class="pagination_btn" id="nextPageBtn">Вперед ›</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTICS -->
+        <div class="statistics_section">
+            <div class="stat_card">
+                <div class="stat_number" id="totalToursCount">0</div>
+                <div class="stat_label">Всего туров</div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_number" id="activeToursCount">0</div>
+                <div class="stat_label">Активных</div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_number" id="draftToursCount">0</div>
+                <div class="stat_label">Черновиков</div>
+            </div>
+            <div class="stat_card">
+                <div class="stat_number" id="archivedToursCount">0</div>
+                <div class="stat_label">В архиве</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer_info">
+            <div class="footer_section_1">
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Поддержка</span>
+                    <a href="">Оставить обращение</a>
+
+                    <span class="footer_info_text_color">Контакты</span>
+                    <a href="">support@russpass.ru</a>
+                    <a href="">8 (495) 122-01-11</a>
+                    <a href="">8 (800) 300-61-22
+                    <br>(бесплатно по России)</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Пользователям</span>
+                    <a href="">О проекте</a>
+                    <a href="">Частые вопросы</a>
+                    <a href="">Войти в профиль</a>
+                    <a href="">Политика конфиденциальности</a>
+                    <a href="">Пользовательское соглашение</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Партнёрам</span>
+                    <a href="">Стать партнером</a>
+                    <a href="">Войти в личный кабинет</a>
+                    <a href="">Инструкции</a>
+                    <a href="">Оферта</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Регионам</span>
+                    <a href="">Взаимодействие с РОИВ</a>
+                </div>
+            </div>
+            <div class="footer_section_2">
+                <div>
+                    Соц сети
+                </div>
+                <div>
+                    Ссылки на приложение
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL FOR TOUR ACTIONS -->
+    <div id="actionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modalTitle">Действия с туром</h3>
+            <div class="modal-actions">
+                <button type="button" class="action_button yellow" id="editTourBtn">✏️ Редактировать</button>
+                <button type="button" class="action_button" id="viewTourBtn">👁️ Посмотреть</button>
+                <button type="button" class="action_button red" id="deleteTourBtn">🗑️ Удалить</button>
+                <button type="button" class="action_button" id="changeStatusBtn">🔄 Изменить статус</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./Admin_EvenList_js.js"></script>
+</body>
+</html>

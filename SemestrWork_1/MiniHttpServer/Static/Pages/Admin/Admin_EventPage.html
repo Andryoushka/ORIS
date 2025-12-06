@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Admin_EventPage_style.css">
+    <title>RUSSPASS: Admin</title>
+</head>
+
+<body>
+    <!-- <div class="body_main"> -->
+    <form class="body_main"
+    action="/admin/create"
+    method="post"
+    id="eventPage">
+        <div class="menu">
+            <div class="menu_left_section">
+                <span style="font-size: 30px; color: red; font-weight: 800;">RUSSPASS</span>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="../Icon/menu_icon.png" alt="">
+                    <span class="menu_LS_item--selected">Меню</span>
+                </div>
+                <div class="menu_LS_item">
+                    <img class="menu_user_icon" src="../Icon/coin_icon.png" alt="">
+                    Бонусы
+                </div>
+            </div>
+            <div class="menu_right_section">
+                <img class="menu_user_icon" src="../Icon/search_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/heart_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/user_icon.png" alt="">
+                <img class="menu_user_icon" src="../Icon/ru_icon.png" alt="">
+            </div>
+        </div>
+
+        <a href="/admin/back-to-menu" class="custom_button" style="text-decoration: none; display: inline-block; margin-bottom: 20px;">
+            ← Назад в меню
+        </a>
+
+        <!-- СЕКЦИЯ СОЗДАНИЯ КАРТОЧКИ ТУРА -->
+        <div class="tour_card_creation_section">
+            <div class="creation_header">
+                <span>Создание карточки тура</span>
+            </div>
+            <div class="creation_content">
+                <!-- ПРЕДПРОСМОТР КАРТОЧКИ -->
+                <div class="card_preview">
+                    <div class="preview_header">Предпросмотр карточки</div>
+                    <div class="event preview_event">
+                        <div class="event_image_block">
+                            <div class="event_rating" id="previewRating">4.8</div>
+                            <div class="event_favorite">
+                                <img class="event_icons" src="../Icon/heart_icon.png" alt="">
+                            </div>
+                            <img class="event_image" id="previewImage" src="https://avatars.mds.yandex.net/get-mpic/4519143/2a000001961e65bc57d86d650c807263868a/orig" alt="Предпросмотр изображения">
+                        </div>
+                        <div class="event_information">
+                            <div class="event_name" id="previewName">Название тура</div>
+                            <div class="event_type">
+                                <img class="event_icons" src="../Icon/geo_icon.png" alt="">
+                                <span id="previewLocation">Местоположение</span>
+                            </div>
+                            <div class="event_type">
+                                <img class="event_icons" src="../Icon/event_type_icon.png" alt="">
+                                <span id="previewType">Тип тура</span>
+                            </div>
+                            <div class="event_type">
+                                <img class="event_icons" src="../Icon/metro_icon.png" alt="">
+                                <span id="previewMetro">Ближайшее метро</span>
+                            </div>
+                        </div>
+                        <button type="button" class="action_button">Посмотреть</button>
+                    </div>
+
+                    <!-- ДОПОЛНИТЕЛЬНЫЕ ПОЛЯ -->
+                    <div class="additional_fields">
+                        <div class="additional_fields_header">Дополнительная информация</div>
+                        <div class="fields_grid">
+                            <div class="field_group">
+                                <label for="cardPrice">Цена тура (руб):</label>
+                                <input name="Price" type="number" id="cardPrice" placeholder="39000" min="0">
+                            </div>
+                            <div class="field_group">
+                                <label for="cardNights">Длительность (ночей):</label>
+                                <select name="NightCount" id="cardNights">
+                                    <option value="1">1 ночь</option>
+                                    <option value="2" selected>2 ночи</option>
+                                    <option value="3">3 ночи</option>
+                                    <option value="4">4 ночи</option>
+                                    <option value="5">5 ночей</option>
+                                    <option value="6">6 ночей</option>
+                                    <option value="7">7 ночей</option>
+                                    <option value="8">8 ночей</option>
+                                    <option value="9">9 ночей</option>
+                                    <option value="10">10 ночей</option>
+                                    <option value="11">11 ночей</option>
+                                    <option value="12">12 ночей</option>
+                                    <option value="13">13 ночей</option>
+                                    <option value="14">14 ночей</option>
+                                </select>
+                            </div>
+                            <div class="field_group">
+                                <label for="cardTourType">Тип организации:</label>
+                                <select name="OrganizationType" id="cardTourType" name="tourType">
+                                    <option value="Групповой">Групповой</option>
+                                    <option value="Индивидуальный">Индивидуальный</option>
+                                    <option value="Автобусный">Автобусный</option>
+                                </select>
+                            </div>
+                            <div class="field_group features_group">
+                                <label>Особенности тура:</label>
+                                <div class="checkbox_group">
+                                    <div class="check_box_block">
+                                        <input name="WithFlight" class="check_box" type="checkbox" id="cardFlight" name="features">
+                                        <label for="cardFlight">С перелетом</label>
+                                    </div>
+                                    <div class="check_box_block">
+                                        <input name="WithAccommodation" class="check_box" type="checkbox" id="cardAccommodation" name="features" checked>
+                                        <label for="cardAccommodation">С проживанием</label>
+                                    </div>
+                                    <div class="check_box_block">
+                                        <input name="WithFood" class="check_box" type="checkbox" id="cardMeals" name="features">
+                                        <label for="cardMeals">С питанием</label>
+                                    </div>
+                                    <div class="check_box_block">
+                                        <input name="WeekendTour" class="check_box" type="checkbox" id="cardWeekend" name="features">
+                                        <label for="cardWeekend">Тур выходного дня</label>
+                                    </div>
+                                    <div class="check_box_block">
+                                        <input name="LowCost" class="check_box" type="checkbox" id="cardBudget" name="features">
+                                        <label for="cardBudget">Недорогой тур</label>
+                                    </div>
+                                    <div class="check_box_block">
+                                        <input name="WithKids" class="check_box" type="checkbox" id="cardChildren" name="features">
+                                        <label for="cardChildren">С детьми</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- РЕДАКТИРОВАНИЕ КАРТОЧКИ -->
+                <div class="card_editor">
+                    <div class="editor_header">Редактирование карточки</div>
+                    <div class="editor_form" id="cardEditorForm">
+                        <div class="form_group">
+                            <label for="cardImage">Изображение карточки:</label>
+                            <div class="image_input_group">
+                                <input name="CardImage" type="url" id="cardImage" placeholder="https://example.com/image.jpg">
+                                <button type="button" class="small-btn" id="previewImageBtn">Просмотр</button>
+                            </div>
+                            <div class="image_preview_small" id="cardImagePreview">
+                                <span>Предпросмотр изображения</span>
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <label for="cardName">Название тура:</label>
+                            <input name="Name" type="text" id="cardName" placeholder="Введите название тура" maxlength="60">
+                            <div class="char_counter"><span id="nameCounter">0</span>/60 символов</div>
+                        </div>
+                        <div class="form_group">
+                            <label for="cardLocation">Местоположение:</label>
+                            <input name="Location" type="text" id="cardLocation" placeholder="ул. Юности, д.2, г. Москва">
+                        </div>
+                        <div class="form_group">
+                            <label for="cardType">Тип тура:</label>
+                            <select name="Type" id="cardType">
+                                <option value="Музей">Музей</option>
+                                <option value="Экскурсия">Экскурсия</option>
+                                <option value="Тур">Тур</option>
+                                <option value="Активный отдых">Активный отдых</option>
+                                <option value="Культурный">Культурный</option>
+                                <option value="Исторический">Исторический</option>
+                            </select>
+                        </div>
+                        <div class="form_group">
+                            <label for="cardMetro">Ближайшее метро:</label>
+                            <input name="NearestMetro" type="text" id="cardMetro" placeholder="Московское">
+                        </div>
+                        <div class="form_group">
+                            <label for="cardRating">Рейтинг:</label>
+                            <div class="rating_input_group">
+                                <input name="Rate" type="number" id="cardRating" min="1" max="5" step="0.1" value="4.8">
+                                <span class="rating_stars">★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="form_actions" style="display: none;">
+                            <button type="button" class="custom_button" id="resetCardBtn">Сбросить</button>
+                            <button type="button" class="custom_button yellow" id="saveCardBtn">Сохранить карточку</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОСТАЛЬНЫЕ СЕКЦИИ -->
+        <div class="tour_pictures_section">
+            <div class="pictures-header">
+                <span>Галерея тура</span>
+                <button type="button" class="small-btn add-picture-btn">+ Добавить изображение</button>
+            </div>
+            <div class="tour_picture_grid" id="tourPictureGrid">
+                <div class="picture-item big-picture" data-index="0">
+                    <img src="https://avatars.mds.yandex.net/get-mpic/4519143/2a000001961e65bc57d86d650c807263868a/orig" alt="Изображение тура">
+                    <input name="PageImage_0" type="hidden" id="pageImage_0_id" value="">
+
+                    <div class="picture-actions">
+                        <button type="button" class="small-btn edit-picture-btn">✏️</button>
+                        <button type="button" class="small-btn delete-picture-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="picture-item big-picture" data-index="1">
+                    <img src="https://avatars.mds.yandex.net/get-mpic/4519143/2a000001961e65bc57d86d650c807263868a/orig" alt="Изображение тура">
+                    <input name="PageImage_1" type="hidden" id="pageImage_1_id" value="">
+
+                    <div class="picture-actions">
+                        <button type="button" class="small-btn edit-picture-btn">✏️</button>
+                        <button type="button" class="small-btn delete-picture-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="picture-item small-picture" data-index="2">
+                    <img src="https://avatars.mds.yandex.net/get-mpic/4519143/2a000001961e65bc57d86d650c807263868a/orig" alt="Изображение тура">
+                    <input name="PageImage_2" type="hidden" id="pageImage_2_id" value="">
+
+                    <div class="picture-actions">
+                        <button type="button" class="small-btn edit-picture-btn">✏️</button>
+                        <button type="button" class="small-btn delete-picture-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="picture-item small-picture" data-index="3">
+                    <img src="https://avatars.mds.yandex.net/get-mpic/4519143/2a000001961e65bc57d86d650c807263868a/orig" alt="Изображение тура">
+                    <input name="PageImage_3" type="hidden" id="pageImage_3_id" value="">
+
+                    <div class="picture-actions">
+                        <button type="button" class="small-btn edit-picture-btn">✏️</button>
+                        <button type="button" class="small-btn delete-picture-btn">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tour_description_section">
+            <div class="description-header">
+                <span>Описание тура</span>
+                <button type="button" class="small-btn edit-description-btn">✏️ Редактировать</button>
+            </div>
+            <div name="description" class="tour_description" id="tourDescription">
+                Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты...
+            </div>
+            <input type="hidden" name="Description" id="description_id" value="">
+        </div>
+
+        <div class="tour-program-section">
+            <div class="tour-program-header">
+                <span>Программа тура</span>
+                <button type="button" class="custom_button yellow" id="addDayBtn">+ Добавить день</button>
+            </div>
+            <div id="tourProgramContainer">
+                <div class="tour_pr" data-day="1">
+                    <div class="tour_day">
+                        <div class="circle">01</div>
+                        <span>день</span>
+                        <div class="day-actions">
+                            <button type="button" class="small-btn edit-day-btn">✏️</button>
+                            <button type="button" class="small-btn delete-day-btn">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="tour_points">
+                        <div class="points-header">
+                            <span>Задачи дня:</span>
+                            <button type="button" class="small-btn add-point-btn">+ Добавить задачу</button>
+                        </div>
+                        <ul class="points-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="TourProgram" id="tourProgram_id" value="">
+
+        </div>
+
+        <!-- КНОПКИ УПРАВЛЕНИЯ ТУРОМ -->
+        <div class="tour_management_section">
+            <div class="management_actions">
+                    <!-- Скрытые поля для передачи данных -->
+                    <input type="hidden" id="formTourData" name="TourData">
+                    <input type="hidden" id="formTourId" name="TourId" value="">
+                    
+                    <button 
+                    onclick="SaveEventPage()" 
+                    type="button" 
+                    class="custom_button yellow large-btn" id="saveTourBtn">
+                        💾 Сохранить тур
+                    </button>
+
+                    <!-- form="eventPage" type="submit"  -->
+                    <button 
+                    type="button"
+                    class="custom_button red large-btn" id="deleteTourBtn">
+                        🗑️ Удалить тур
+                    </button>
+                <!-- </form> -->
+            </div>
+        </div>
+
+    </form>
+    <!-- </div> -->
+
+    <footer>
+        <div class="footer_info">
+            <div class="footer_section_1">
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Поддержка</span>
+                    <a href="">Оставить обращение</a>
+                    <span class="footer_info_text_color">Контакты</span>
+                    <a href="">support@russpass.ru</a>
+                    <a href="">8 (495) 122-01-11</a>
+                    <a href="">8 (800) 300-61-22<br>(бесплатно по России)</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Пользователям</span>
+                    <a href="">О проекте</a>
+                    <a href="">Частые вопросы</a>
+                    <a href="">Войти в профиль</a>
+                    <a href="">Политика конфиденциальности</a>
+                    <a href="">Пользовательское соглашение</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Партнёрам</span>
+                    <a href="">Стать партнером</a>
+                    <a href="">Войти в личный кабинет</a>
+                    <a href="">Инструкции</a>
+                    <a href="">Оферта</a>
+                </div>
+                <div class="footer_section_1_colum">
+                    <span class="footer_info_text_color">Регионам</span>
+                    <a href="">Взаимодействие с РОИВ</a>
+                </div>
+            </div>
+            <div class="footer_section_2">
+                <div>Соц сети</div>
+                <div>Ссылки на приложение</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div id="pictureModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Добавление/редактирование изображения</h3>
+            <div class="modal-input-group">
+                <label for="pictureUrl">Ссылка на изображение:</label>
+                <input type="url" id="pictureUrl" placeholder="https://example.com/image.jpg">
+            </div>
+            <div class="modal-input-group">
+                <label for="pictureSize">Размер изображения:</label>
+                <select id="pictureSize">
+                    <option value="big">Большое (341x408px)</option>
+                    <option value="small">Маленькое (198x198px)</option>
+                </select>
+            </div>
+            <div class="modal-input-group">
+                <label for="pictureAlt">Описание изображения:</label>
+                <input type="text" id="pictureAlt" placeholder="Описание для SEO">
+            </div>
+            <div class="image-preview" id="imagePreview">
+                <span>Предпросмотр появится здесь</span>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="custom_button" id="cancelPictureBtn">Отмена</button>
+                <button type="button" class="custom_button yellow" id="savePictureBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h3>Редактирование описания тура</h3>
+            <textarea id="descriptionText" placeholder="Введите описание тура"></textarea>
+            <div class="modal-actions">
+                <button id="cancelDescriptionBtn" class="custom_button">Отмена</button>
+                <button id="saveDescriptionBtn" class="custom_button yellow">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dayModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Редактирование дня</h3>
+            <input type="text" id="dayTitle" placeholder="Название дня">
+            <div class="modal-actions">
+                <button type="button" class="custom_button">Отмена</button>
+                <button type="button" id="saveDayBtn" class="custom_button yellow">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pointModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Редактирование задачи</h3>
+            <input type="text" id="pointText" placeholder="Текст задачи">
+            <div class="modal-actions">
+                <button type="button" class="custom_button">Отмена</button>
+                <button id="savePointBtn" class="custom_button yellow">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/Form_Script.js"></script>
+    <script src="./Admin_EventPage_script.js"></script>
+</body>
+</html>

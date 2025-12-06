@@ -1,0 +1,278 @@
+﻿/*#region Онбулятор */
+        *{padding: 0;margin: 0;border: 0;}
+        *,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+        :focus,:active{outline: none;}
+        a:focus,a:active{outline: none;}
+        nav,footer,header,aside{display: block;}
+        html,body{
+        height:100%;width:100%;
+        font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+        input,button,textarea{font-family:inherit;}
+        input::-ms-clear{display: none;}
+        button{cursor: pointer;}
+        button::-moz-focus-inner{padding:0;border:0;}
+        a,a:visited{text-decoration: none;}
+        a:hover{text-decoration: none;}
+        ul li{list-style: none;}
+        img{vertical-align: top;}
+        h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+        a{color:inherit;}
+/*#endregion*/
+
+    *{
+        font-family: Arial, Helvetica, sans-serif ;
+        font-weight: 400;
+    }
+
+/*#region ФУТЕР */
+        .footer_info{
+            padding-top: 50px;
+            padding-left: 150px;
+            padding-right: 150px;
+            color: white;
+            background-color: black;
+        }
+        .footer_section_1{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .footer_section_1_colum{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer_info_text_color{
+            color: gray;
+        }
+        .footer_section_2{
+            display: grid;
+            grid-template-rows: repeat(2, 100px);
+        }
+/*#endregion*/
+
+    .body_main{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 928px;
+    }
+        
+/* #region MENU */
+        .menu{
+            display: flex;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .menu_right_section{
+
+        }
+        .menu_left_section{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+        .menu_user_icon{
+            width: 48px;
+            height: 48px;
+            padding: 12px;
+        }
+        .menu_LS_item{
+            margin-left: 10px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+        .menu_LS_item--selected{
+            border-bottom: 2px solid var(--action_button_color);
+        }
+/* #endregion */
+
+    .site_path{
+        color: blue;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    .site_path_current{
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+/* #region TOUR */
+    .tour{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .tour_action{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+/* #endregion */
+
+/* #region BUTTONS */
+    .custom_button{
+        min-width: 48px;
+        width: auto;
+        height: 48px;
+        padding: 12px;
+
+        background-color: var(--site_background_color);
+        border-radius: 12px;
+    }
+    .custom_button:hover{
+        background-color: var(--border_color);
+    }
+    .yellow{
+        background-color: var(--action_button_color);
+    }
+    .yellow:hover{
+        background-color: var(--action_button_color_hover);
+    }
+
+    #order{
+        display: flex;
+        flex-direction: column;
+    }
+/* #endregion */
+
+/*#region TOUR INFO */
+    .tour_info{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .tour_info_icon{
+        width: 24px;
+        height: 24px;
+    }
+/*#endregion */
+
+/*#region PICTURES */
+    .tour_picture_grid{
+        display: grid;
+        grid-template-columns: 2f 2f 1f;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .tour_picture_big{
+        width: 341px;
+        height: 408px;
+    }
+    .tour_picture_small{
+        width: 198px;
+        height: 198px;
+    }
+/*#endregion  */
+
+/*#region DESCRIPTION */
+    .tour_description{
+        padding-top: 50px;
+        padding-bottom: 50px;
+        border-top: 1px solid grey;
+    }
+/*#endregion GENERAL */
+
+/*#region TOUR PROGRAM */
+    .tour_pr{
+        margin-top: 30px;
+    }
+    .tour_day{
+        display: flex;
+        gap: 10px;
+        justify-content: start;
+        align-items: center;
+    }
+    .circle{
+        background-color: black;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .tour_points{
+        margin-left: 24px;
+        margin-top: 16px;
+        padding-left: 24px;
+
+        border-left: 3px solid var(--text_grey_color);
+    }
+    ul li{
+        list-style: disc;
+        list-style-position: inside;
+    }
+    ul li::marker{
+        color: var(--text_grey_color);
+    }
+/*#endregion  */
+
+/*#region FEEDBACK */
+    .feedback{
+        margin-top: 40px;
+    }
+    .make_feedback{
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        border: 1px solid var(--text_grey_color);
+        border-radius: 12px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+/*#endregion */
+
+/*#region GENERAL */
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+        }
+        div{
+            /* border: 1px solid black; */
+        }
+        button{
+            /* border: 1px solid black; */
+            font-weight: 600;
+        }
+
+        footer{
+            width: 100%;
+            height: 300px;;
+        }
+
+        :root{
+            --action_button_color: #face00;
+            --action_button_color_hover: #e0b800;
+            --events_background_color: #f5f5f5;
+            --site_color: #ffffff;
+            --site_background_color: #eaeaea;
+            --rating_color: #237470;
+            --event_icon_size: 20px;
+            --text_grey_color: #a6a6a6;
+            --border_color: #d9d9d9;
+        } 
+/*#endregion*/
