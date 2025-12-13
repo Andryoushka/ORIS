@@ -118,7 +118,8 @@ internal class EndpointsHandler : Handler
             return;
         }
 
-            Console.WriteLine($"Метод -{method.Name}- выполнен!");
+        Console.WriteLine($"Метод -{method.Name}- выполнен!");
+        context.Response.Close();
 
         // передача запроса дальше по цепи при наличии в ней обработчиков
         if (Successor != null)
