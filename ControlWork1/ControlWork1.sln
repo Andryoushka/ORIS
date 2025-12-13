@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceStatusProcessorServer", "InvoiceStatusProcessorServer\InvoiceStatusProcessorServer.csproj", "{F0AAF361-60AF-4627-9DF6-F3D50030EAD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHttpServer.Framework", "..\SemestrWork_1\MiniHttpServer.Framework\MiniHttpServer.Framework.csproj", "{3124F12F-11B6-473B-8FDA-9219E78BE02E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyORMLibrary", "..\SemestrWork_1\MyORMLibrary\MyORMLibrary.csproj", "{28C3C06A-F2AA-4AB1-BB2D-18DA8C0E2F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3124F12F-11B6-473B-8FDA-9219E78BE02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3124F12F-11B6-473B-8FDA-9219E78BE02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3124F12F-11B6-473B-8FDA-9219E78BE02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C3C06A-F2AA-4AB1-BB2D-18DA8C0E2F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C3C06A-F2AA-4AB1-BB2D-18DA8C0E2F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C3C06A-F2AA-4AB1-BB2D-18DA8C0E2F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C3C06A-F2AA-4AB1-BB2D-18DA8C0E2F6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

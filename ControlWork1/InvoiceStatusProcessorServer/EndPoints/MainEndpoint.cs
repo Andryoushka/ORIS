@@ -1,4 +1,5 @@
-﻿using MiniHttpServer.Framework.Attributes;
+﻿using InvoiceStatusProcessorServer.Models;
+using MiniHttpServer.Framework.Attributes;
 using MiniHttpServer.Framework.Core.Abstract;
 using MiniHttpServer.Framework.share;
 using MyORMLibrary;
@@ -18,7 +19,20 @@ public class MainEndpoint : BaseEndPoint
     {
         var connectionString = SettingsManager.Instance.Settings.ConnectionString;
         var orm = new ORMContext(connectionString);
-        
+        var inv = orm.ReadByAll<Invoice>("Invoices");
+
+        foreach (var item in inv)
+        {
+            item.ToString();
+        }
+
+        var random = new Random();
+        foreach (var item in inv)
+        {
+            var status = random.NextDouble() >= 0.7 ? "error" : "success";
+            item.Status = status;
+            orm.Update(item.Id, item , "Invoices");
+        }
 
         return null;
     }
