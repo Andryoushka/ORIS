@@ -14,6 +14,9 @@ namespace Test
 
         [XField(2)]
         public bool TestBoolean;
+
+        [XField(3)]
+        public string Text = "sample text";
     }
 
     internal class Program
@@ -24,12 +27,24 @@ namespace Test
             Console.ForegroundColor = ConsoleColor.White;
 
             var packet = XPacket.Create(0, 0);
-            packet.SetValue(0, 12345);
-
+            //packet.SetValue(0, 12345);
+            var test = new TestPacket()
+            {
+                TestBoolean = true,
+                TestNumber = 52,
+                TestDouble = 1.67d
+            };
+            
+            packet = XPacketConverter.Serialize(XPacketType.PointPlased, test);
             var encr = packet.Encrypt().ToPacket();
             var decr = XPacket.Parse(encr);
 
-            Console.WriteLine(decr.GetValue<int>(0));
+            var result = XPacketConverter.Deserialize<TestPacket>(decr);
+            Console.WriteLine(result.TestNumber);
+            Console.WriteLine(result.TestBoolean);
+            Console.WriteLine(result.TestDouble);
+            Console.WriteLine(result.Text);
+            //Console.WriteLine(decr.GetValue<int>(0));
 
             Console.ReadLine();
         }

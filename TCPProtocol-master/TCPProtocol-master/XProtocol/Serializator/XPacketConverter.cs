@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace XProtocol.Serializator
 {
@@ -36,7 +37,13 @@ namespace XProtocol.Serializator
 
             foreach (var field in fields)
             {
-                packet.SetValue(field.Item2, field.Item1.GetValue(obj));
+                if (field.Item1.FieldType.Name.ToLower() == "string")
+                {
+                    var value = (string)field.Item1.GetValue(obj);
+                    packet.SetValueRaw(field.Item2, Encoding.UTF8.GetBytes(value));
+                }
+                else
+                    packet.SetValue(field.Item2, field.Item1.GetValue(obj));
             }
 
             return packet;
@@ -67,10 +74,16 @@ namespace XProtocol.Serializator
                     continue;
                 }
 
-                var value = typeof(XPacket)
+                bool isNotString = field.FieldType.Name.ToLower() != "string";
+                var value = isNotString ?
+                    typeof(XPacket)
                     .GetMethod("GetValue")?
                     .MakeGenericMethod(field.FieldType)
-                    .Invoke(packet, new object[] {packetFieldId});
+                    .Invoke(packet, new object[] { packetFieldId })
+                    :
+                    typeof(XPacket)
+                    .GetMethod("GetValueRaw")?
+                    .Invoke(packet, new object[] { packetFieldId });
 
                 if (value == null)
                 {
@@ -82,7 +95,11 @@ namespace XProtocol.Serializator
                     continue;
                 }
 
-                field.SetValue(instance, value);
+                if (isNotString)
+                    field.SetValue(instance, value);
+                else
+                    field.SetValue(instance, Encoding.UTF8.GetString((byte[])value));
+
             }
 
             return instance;

@@ -3,6 +3,9 @@
     public enum XPacketType
     {
         Unknown,
-        Handshake
+        Handshake,
+        PlayerConnected,
+        PlayerDisconnected,
+        PointPlased
     }
 }

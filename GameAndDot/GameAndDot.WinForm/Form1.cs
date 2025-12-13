@@ -4,17 +4,33 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using GameAndDot.Shared.Enums;
 using System.Text.Json;
 using System.Net.Http;
+using XProtocol.shared;
+using XProtocol.Serializator;
+using XProtocol;
+using XProtocol.Message;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using System.Windows.Forms;
+using GameAndDot.WinForm.Models;
+using System.Text.Unicode;
+using System.Text;
 
 namespace GameAndDot.WinForm;
 
 public partial class Form1 : Form
 {
     readonly string host = "127.0.0.1";
-    readonly int port = 8888;
+    readonly int port = 4910; // 8888
     private string userName = "anonimus";
-    private readonly TcpClient _tcpClient;
+    private static int _handshakeMagic;
+    private Random _random = new Random();
+
+
+    // <_ Old Realization _>
+    /*private readonly TcpClient _tcpClient;
     private readonly StreamReader _reader;
-    private readonly StreamWriter _writer;
+    private readonly StreamWriter _writer;*/
+
+    private readonly XClient _client;
 
     private Bitmap gameSurface;
     private Graphics gfx;
@@ -23,10 +39,13 @@ public partial class Form1 : Form
         InitializeComponent();
 
         // <!using?>
-        _tcpClient = new TcpClient();
+        /*_tcpClient = new TcpClient();
         _tcpClient.Connect(host, port); //подключение клиента
         _reader = new StreamReader(_tcpClient.GetStream());
-        _writer = new StreamWriter(_tcpClient.GetStream());
+        _writer = new StreamWriter(_tcpClient.GetStream());*/
+        _client = new XClient();
+        _client.OnPacketRecieve += OnPacketRecieve;
+        _client.Connect(host, port);
 
         gameSurface = new Bitmap(panel1.Width, panel1.Height);
         gfx = Graphics.FromImage(gameSurface);
@@ -66,20 +85,23 @@ public partial class Form1 : Form
 
         try
         {
-            if (_writer is null || _reader is null) return;
+            //if (_writer is null || _reader is null) return;
             // запускаем новый поток для получения данных
-            Task.Run(() => ReceiveMessageAsync());
+            //Task.Run(() => ReceiveMessageAsync());
 
-            var message = new EventMessage
+            var message = new XEventMessage
             {
-                Type = EventType.PlayerConnected,
+                //Type = EventType.PlayerConnected,
                 PlayerName = userName,
             };
 
-            var json = JsonSerializer.Serialize(message);
+            var packet = XPacketConverter.Serialize(XPacketType.PlayerConnected, message)
+                .ToPacket();
+            _client.QueuePacketSend(packet); // <- Отправка
 
+            /*var json = JsonSerializer.Serialize(message);
             // запускаем ввод сообщений
-            await SendMessageAsync(json);
+            await SendMessageAsync(json);*/
         }
         catch (Exception ex)
         {
@@ -93,17 +115,22 @@ public partial class Form1 : Form
     async Task SendMessageAsync(string message)
     {
         // сначала отправляем имя
-        await _writer.WriteLineAsync(message);
-        await _writer.FlushAsync();
+        //await _writer.WriteLineAsync(message);
+        //await _writer.FlushAsync();
+        _handshakeMagic = _random.Next();
 
-        /*while (true)
-        {
-            await _writer.WriteLineAsync(message);
-            await _writer.FlushAsync();
-        }*/
+        _client.QueuePacketSend(
+                XPacketConverter.Serialize(
+                    XPacketType.Handshake,
+                    new XPacketHandshake
+                    {
+                        MagicHandshakeNumber = _handshakeMagic
+                    })
+                    .ToPacket());
     }
+
     // получение сообщений
-    async Task ReceiveMessageAsync()
+    /*async Task ReceiveMessageAsync()
     {
         while (true)
         {
@@ -157,7 +184,7 @@ public partial class Form1 : Form
             }
         }
     }
-
+*/
 
     // Выход пользователя (disconnected)
     private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -165,7 +192,7 @@ public partial class Form1 : Form
 
         try
         {
-            if (_writer is null || _reader is null) return;
+            //if (_writer is null || _reader is null) return;
             // запускаем новый поток для получения данных
             //Task.Run(() => ReceiveMessageAsync());
 
@@ -201,8 +228,18 @@ public partial class Form1 : Form
             Color = colorLbl.ForeColor.Name // например, если colorLbl хранит выбранный цвет
         };
 
-        var json = JsonSerializer.Serialize(message);
-        await SendMessageAsync(json);
+        var m = new XEventMessage()
+        {
+            Color = colorLbl.ForeColor.Name,
+            X = e.X,   // <- координата по клику
+            Y = e.Y,
+            PlayerName = userName,
+        };
+        var packet = XPacketConverter.Serialize(XPacketType.PointPlased ,m).ToPacket();
+        _client.QueuePacketSend(packet);
+
+        //var json = JsonSerializer.Serialize(message);
+        //await SendMessageAsync(json);
 
         // Локально тоже рисуем точку (для мгновенного отклика)
         DrawPoint(e.X, e.Y, Color.Red); // например, красная — своя точка
@@ -213,5 +250,71 @@ public partial class Form1 : Form
         using var brush = new SolidBrush(color);
         gfx.FillEllipse(brush, x - 5, y - 5, 10, 10); // круг радиусом 5
         panel1.Invalidate(); // запросить перерисовку
+    }
+
+    private void OnPacketRecieve(byte[] packet)
+    {
+        var parsed = XPacket.Parse(packet);
+
+        if (parsed != null)
+        {
+            ProcessIncomingPacket(parsed);
+        }
+    }
+
+    private void ProcessIncomingPacket(XPacket packet)
+    {
+        var type = XPacketTypeManager.GetTypeFromPacket(packet);
+
+        var message = XPacketConverter.Deserialize<XEventMessage>(packet);
+
+        switch (type)
+        {
+            case XPacketType.Handshake:
+                ProcessHandshake(packet);
+                break;
+            case XPacketType.Unknown:
+                break;
+            case XPacketType.PlayerConnected:
+                Invoke(() =>
+                {
+                    listBox1.Items.Clear();
+                    foreach (var playerName in message.PlayersString.Split('/'))
+                    {
+                        listBox1.Items.Add(playerName);
+                    }
+                });
+                break;
+            case XPacketType.PlayerDisconnected:
+                Invoke(() =>
+                {
+                    if (listBox1.Items.Contains(message.PlayerName))
+                        listBox1.Items.Remove(message.PlayerName);
+                });
+                break;
+            case XPacketType.PointPlased:
+                Invoke(() =>
+                {
+                    // Рисуем чужую точку (например, синюю)
+                    var pointColor = message.PlayerName == userName
+                        ? Color.Red
+                    : Color.Blue;
+
+                    DrawPoint(message.X, message.Y, pointColor);
+                });
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private static void ProcessHandshake(XPacket packet)
+    {
+        var handshake = XPacketConverter.Deserialize<XPacketHandshake>(packet);
+
+        if (_handshakeMagic - handshake.MagicHandshakeNumber == 15)
+        {
+            Console.WriteLine("Handshake successful!");
+        }
     }
 }

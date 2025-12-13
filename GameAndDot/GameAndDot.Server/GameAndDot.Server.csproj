@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TCPProtocol-master\TCPProtocol-master\XProtocol\XProtocol.csproj" />
     <ProjectReference Include="..\GameAndDot.Shared\GameAndDot.Shared.csproj" />
   </ItemGroup>
 
