@@ -1,0 +1,8 @@
+﻿{
+  "StaticDirectoryPath": "Static",
+  "Domain": "127.0.0.1",
+  "Port": "8888",
+  "ConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Invoices;Integrated Security=True",
+  "ProcessingIntervalSeconds": 300,
+  "MaxErrorRetries": 5
+}

@@ -77,4 +77,7 @@ public class AppSettings
     /// Строка подключения к базе данных MS SQL
     /// </summary>
     public string ConnectionString { get; set; }
+
+    public int ProcessingIntervalSeconds { get; set; }
+    public int MaxErrorRetries { get; set; }
 }

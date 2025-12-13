@@ -1,18 +1,10 @@
-﻿using GameAndDot.Shared.Models;
-using System.Net.Sockets;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using GameAndDot.Shared.Enums;
+﻿using GameAndDot.Shared.Enums;
+using GameAndDot.Shared.Models;
 using System.Text.Json;
-using System.Net.Http;
-using XProtocol.shared;
-using XProtocol.Serializator;
 using XProtocol;
 using XProtocol.Message;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-using System.Windows.Forms;
-using GameAndDot.WinForm.Models;
-using System.Text.Unicode;
-using System.Text;
+using XProtocol.Serializator;
+using XProtocol.shared;
 
 namespace GameAndDot.WinForm;
 
@@ -129,83 +121,25 @@ public partial class Form1 : Form
                     .ToPacket());
     }
 
-    // получение сообщений
-    /*async Task ReceiveMessageAsync()
-    {
-        while (true)
-        {
-            try
-            {
-                // получаем имя пользователя
-                string json = await _reader.ReadLineAsync();
-                var message = JsonSerializer.Deserialize<EventMessage>(json);
-
-                switch (message.Type)
-                {
-                    case Shared.Enums.EventType.PlayerConnected:
-
-                        Invoke(() =>
-                        {
-                            listBox1.Items.Clear();
-                            foreach (var playerName in message.Players)
-                            {
-                                listBox1.Items.Add(playerName);
-                            }
-                        });
-                        break;
-
-                    case Shared.Enums.EventType.PlayerDisconnected:
-                        Invoke(() =>
-                        {
-                            if (listBox1.Items.Contains(message.PlayerName))
-                                listBox1.Items.Remove(message.PlayerName);
-                        });
-                        break;
-
-                    case Shared.Enums.EventType.PointPlased:
-                        Invoke(() =>
-                        {
-                            // Рисуем чужую точку (например, синюю)
-                            var pointColor = message.PlayerName == userName
-                                ? Color.Red
-                                : Color.Blue;
-
-                            DrawPoint(message.X, message.Y, pointColor);
-                        });
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-            catch
-            {
-                break;
-            }
-        }
-    }
-*/
-
     // Выход пользователя (disconnected)
     private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
     {
 
         try
         {
-            //if (_writer is null || _reader is null) return;
-            // запускаем новый поток для получения данных
-            //Task.Run(() => ReceiveMessageAsync());
-
             var message = new EventMessage
             {
                 Type = EventType.PlayerDisconnected,
                 PlayerName = userName,
             };
 
-            var json = JsonSerializer.Serialize(message);
+            var m = new XEventMessage()
+            {
+                PlayerName = userName
+            };
 
-            // запускаем ввод сообщений
-            await SendMessageAsync(json);
+            var packet = XPacketConverter.Serialize(XPacketType.PlayerDisconnected ,m).ToPacket();
+            _client.QueuePacketSend(packet);
         }
         catch (Exception ex)
         {
