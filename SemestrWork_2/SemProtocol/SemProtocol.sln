@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{7625CFA7-90D1-4F00-8B4E-338260A57AA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{8AECBA56-E64C-487A-B8A0-25F49DF5F340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZProtocol", "ZProtocol\ZProtocol.csproj", "{6944E0F5-B56C-44E7-8EFB-CEB5E11E097B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7625CFA7-90D1-4F00-8B4E-338260A57AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7625CFA7-90D1-4F00-8B4E-338260A57AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7625CFA7-90D1-4F00-8B4E-338260A57AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7625CFA7-90D1-4F00-8B4E-338260A57AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AECBA56-E64C-487A-B8A0-25F49DF5F340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AECBA56-E64C-487A-B8A0-25F49DF5F340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AECBA56-E64C-487A-B8A0-25F49DF5F340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AECBA56-E64C-487A-B8A0-25F49DF5F340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6944E0F5-B56C-44E7-8EFB-CEB5E11E097B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6944E0F5-B56C-44E7-8EFB-CEB5E11E097B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6944E0F5-B56C-44E7-8EFB-CEB5E11E097B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6944E0F5-B56C-44E7-8EFB-CEB5E11E097B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

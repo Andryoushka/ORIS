@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:controls="clr-namespace:ZombieCats.Controls"
+             
+             x:Class="ZombieCats.GameField"
+             Title="GameField">
+
+    <!--Поле-Рука-->
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+
+        <!--Сброс-Поле-Колода-->
+        <Grid Grid.Row="0" BackgroundColor="Teal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Сброс-->
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Grid.Column="0">
+                <Label Text="Сброс" HorizontalOptions="Center"/>
+                <controls:GameCard/>
+            </VerticalStackLayout>
+            
+            <!--Колода-->
+            <VerticalStackLayout x:Name="CardsDeckField"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Grid.Column="2">
+                <Label Text="Колода" HorizontalOptions="Center"/>
+                <controls:DeckOfCards x:Name="Deck"/>
+            </VerticalStackLayout>
+
+            <!--Игроки-Поле-->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <!--Игроки-->
+                <Border BackgroundColor="#123" 
+                        Grid.Row="0"
+                        >
+                    <CollectionView HorizontalOptions="Center"
+                                    ItemsLayout="HorizontalList"
+                                    ItemsSource="{Binding Players}"
+                                    >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:PlayerView/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Border>
+                <!--Поле-->
+                <Grid BackgroundColor="#157" Grid.Row="1">
+                    <CollectionView x:Name="PlayedCards_Collection"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    ItemsSource="{Binding PlayedCards}"
+                                    ItemsLayout="HorizontalList"
+                                    SelectionMode="Single"
+                                    >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:GameCard/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Рука-->
+            <CollectionView x:Name="Arm_Collection"
+                            Grid.Row="1" 
+                            BackgroundColor="Aqua"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding Arm}"
+                            SelectionMode="Multiple"
+                            Grid.Column="0"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:GameCard/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="5"
+                                 Padding="5">
+                <Button Text="Использовать 1"
+                        Clicked="UseCard"/>
+                <Button Text="Обменять 2 вслепую"
+                        Clicked="ExchangeCard"/>
+                <Button Text="Обменять 3 конкретно"
+                        Clicked="ExchangeDefiniteCard"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <BoxView BackgroundColor="#80000000"
+                 ZIndex="10"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill"
+                 HeightRequest="3000"
+                 x:Name="GameShield"
+                 
+                 />
+        
+    </Grid>
+    
+</ContentPage>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZombieCats.MainPage"
+>
+
+    <Border HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Padding="15">
+        <VerticalStackLayout>
+            <Label Text="Введите своё имя:"
+                />
+            <Entry Text="{Binding PlayerName}"
+                   Margin="0,0,0,10"
+                   x:Name="EntryPlayerName"/>
+            <Label Text="{Binding PlayersCount}"
+                   HorizontalOptions="Center"/>
+            <Label Text="Ожидаем остальных игроков (1 для входа)"
+                   HorizontalOptions="Center"/>
+            <Button Text="Начать игру"
+                    WidthRequest="150"
+                    HeightRequest="30"
+                    Clicked="StartGame"
+                    IsEnabled="{Binding CanBeginGame}"
+                    />
+        </VerticalStackLayout>
+    </Border>
+    
+
+</ContentPage>
