@@ -9,5 +9,7 @@ namespace GameServer.Enums;
 public enum CardType
 {
     Nothing,
-    Bomb
+    Bomb,
+    Skip,
+    LookIntoDeck
 }

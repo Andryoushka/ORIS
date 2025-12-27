@@ -17,8 +17,10 @@
                    FontSize="20"
                    FontFamily="TimesNewRoman"
                    />
-            <Label Text="Карт осталось: ..."/>
-            
+            <Image Source="player_icon.jpg"
+                   Scale="0.6"
+                   TranslationY="-30"
+                   />
         </VerticalStackLayout>
     </Border>
     

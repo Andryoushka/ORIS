@@ -24,6 +24,7 @@ public enum ZPacketType
     GivePlayerCards,
     Deck_GiveCard,
     PlayerIsDead,
-    Winner
+    Winner,
+    LookIntoDeck
 }
 

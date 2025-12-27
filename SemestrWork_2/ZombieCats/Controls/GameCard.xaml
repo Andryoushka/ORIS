@@ -9,10 +9,14 @@
             StrokeShape="RoundRectangle 20"
             >
 
+        <!--
         <VerticalStackLayout>
             <Label Text="Тип карты:"/>
             <Label Text="Описание:"/>
         </VerticalStackLayout>
+        -->
+        <Image Source="{Binding CardImageSource}"
+               x:Name="CardImage"/>
     </Border>
     
 </ContentView>

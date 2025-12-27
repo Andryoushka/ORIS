@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!--Сброс-Поле-Колода-->
-        <Grid Grid.Row="0" BackgroundColor="Teal">
+        <Grid Grid.Row="0" BackgroundColor="#c0dc87">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
@@ -28,8 +28,13 @@
             <VerticalStackLayout HorizontalOptions="Center"
                                  VerticalOptions="Center"
                                  Grid.Column="0">
-                <Label Text="Сброс" HorizontalOptions="Center"/>
-                <controls:GameCard/>
+                <!--<Label Text="Сброс" HorizontalOptions="Center"/>
+                <controls:GameCard/> -->
+                
+                <Image Source="zombie_arm.png"
+                       Scale="2"
+                       TranslationY="40"
+                       />
             </VerticalStackLayout>
             
             <!--Колода-->
@@ -44,12 +49,12 @@
             <!--Игроки-Поле-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
                 <!--Игроки-->
-                <Border BackgroundColor="#123" 
+                <Border BackgroundColor="#3ba273" 
                         Grid.Row="0"
                         >
                     <CollectionView HorizontalOptions="Center"
@@ -64,7 +69,7 @@
                     </CollectionView>
                 </Border>
                 <!--Поле-->
-                <Grid BackgroundColor="#157" Grid.Row="1">
+                <Grid BackgroundColor="#c0dc87" Grid.Row="1">
                     <CollectionView x:Name="PlayedCards_Collection"
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"
@@ -91,11 +96,12 @@
             <!--Рука-->
             <CollectionView x:Name="Arm_Collection"
                             Grid.Row="1" 
-                            BackgroundColor="Aqua"
+                            BackgroundColor="#0e1f26"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding Arm}"
                             SelectionMode="Multiple"
                             Grid.Column="0"
+                            SelectionChanged="Arm_Collection_SelectionChanged"
                             >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -106,13 +112,18 @@
 
             <VerticalStackLayout Grid.Column="1"
                                  Spacing="5"
-                                 Padding="5">
+                                 Padding="5"
+                                 BackgroundColor="#043c39"
+                                 >
                 <Button Text="Использовать 1"
-                        Clicked="UseCard"/>
+                        Clicked="UseCard"
+                        x:Name="Use_Button"/>
                 <Button Text="Обменять 2 вслепую"
-                        Clicked="ExchangeCard"/>
+                        Clicked="ExchangeCard"
+                        x:Name="Exchange_Button"/>
                 <Button Text="Обменять 3 конкретно"
-                        Clicked="ExchangeDefiniteCard"/>
+                        Clicked="ExchangeDefiniteCard"
+                        x:Name="ExchangeDefinite_Button"/>
             </VerticalStackLayout>
         </Grid>
 

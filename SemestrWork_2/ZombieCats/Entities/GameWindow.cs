@@ -15,7 +15,8 @@ public class GameWindow : Window
 
     public GameWindow(Page page) : base(page)
     {
-        
+        //Width = 1920;
+        //Height = 1080;
     }
 
     public static event Action GameWindowClosing;

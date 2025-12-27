@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ZProtocol;
@@ -147,10 +148,12 @@ public class ConnectedClient
                     // создать колоду по количеству игроков
                     var playersCount = _server.Clients.Count;
                     _server.CardDeck.Clear();
-                    for (int i = 0; i < playersCount * 10; i++)
-                    {
+                    for (int i = 0; i < 8; i++)
                         _server.CardDeck.Add(Enums.CardType.Nothing);
-                    }
+                    for (int i = 0; i < 3; i++)
+                        _server.CardDeck.Add(Enums.CardType.Skip);
+                    for (int i = 0; i < 4; i++)
+                        _server.CardDeck.Add(Enums.CardType.LookIntoDeck);
 
                     // тасуем и раздаём игрокам по 7 карт
                     Shuffle(_server.CardDeck);
@@ -173,7 +176,7 @@ public class ConnectedClient
                     }
 
                     // добавляем бомбы и тасуем ещё раз
-                    for (int i = 0; i < playersCount; i++)
+                    for (int i = 0; i < playersCount - 1; i++)
                         _server.CardDeck.Add(Enums.CardType.Bomb);
                     Shuffle(_server.CardDeck);
 
@@ -240,6 +243,13 @@ public class ConnectedClient
                         new ZMessage { PlayerId = _server.Clients.IndexOf(winner), Message = winner.UserName }).ToPacket()
                         , SendType.ToAll);
                 }
+                break;
+
+            case ZPacketType.LookIntoDeck:
+                var cards = string.Join( '/',_server.CardDeck.Take(3));
+                QueuePacketSend(ZPacketConverter.Serialize(ZPacketType.LookIntoDeck,
+                new ZMessage { Message = cards }).ToPacket()
+                , SendType.ToClient);
                 break;
 
             default:

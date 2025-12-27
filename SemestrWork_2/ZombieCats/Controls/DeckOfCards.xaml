@@ -3,13 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZombieCats.Controls.DeckOfCards">
 
-    <Button x:Name="button_Deck"
-            Clicked="Deck_Clicked"
-            ImageSource="card_shirt.jpg"
-            BackgroundColor="Transparent"
-            BorderWidth="0"
-            >
-        
-    </Button>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="card_shirt.jpg"
+               Grid.Row="0"
+               Aspect="AspectFill"/>
+
+        <Button x:Name="button_Deck"
+                Clicked="Deck_Clicked"
+                Grid.Row="1"
+                Text="Взять карту"
+                FontSize="12"
+                />
+
+
+    </Grid>
     
 </ContentView>

@@ -19,7 +19,6 @@ public class ZServer
     private bool _stopListening;
 
     public List<CardType> CardDeck = new List<CardType>(); // колода
-    private List<CardType> CardDrop = new List<CardType>(); // сброс
     private int _playerTurnId; // ID игрока по очереди
 
     public ZServer()
