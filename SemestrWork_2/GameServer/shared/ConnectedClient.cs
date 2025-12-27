@@ -15,12 +15,6 @@ namespace GameServer.shared;
 public class ConnectedClient
 {
 /*
- * Очередь игроков на сервере
- * Колода, сброс, "руки" игроков
- * 
- * Действия на сервере
- * Менеджер действий - словарь
- * 
  * Типы карт:
  * Взрывной кот (4) - смерть
  * 1. Зомби кот (5) - бомбу в колоду, оживи игрока
@@ -39,16 +33,19 @@ public class ConnectedClient
  * 14. Пропустить (3) - закончи ход не бери карты
  * 15. Расхититель гробниц (1) - мертвецы выбрать по 1 карте в колоду рандомно
  */
+    
+    //имя игрока
     protected string UserName { get; set; } = string.Empty;
+    //ID игрока
     protected string Id { get; } = Guid.NewGuid().ToString();
     protected List<object> Hand = new List<object>(); // рука
-    protected bool IsDead { get; set; } = false;
-    protected bool IsReady { get; set; } = false;
-    //protected bool OwnTurn { get; set; } = false;
+    protected bool IsDead { get; set; } = false; // игрок умер или нет?
+    protected bool IsReady { get; set; } = false; // готовность к игре
 
-    private ZServer _server { get; set; }
-    public Socket Client { get; }
+    private ZServer _server { get; set; } // храним экземпляр сервера для доступа к другим клиентам
+    public Socket Client { get; } // текущий клиент
 
+    //очередь отправляемых пакетов с информацией
     private readonly Queue<Tuple<byte[], SendType>> _packetSendingQueue 
         = new Queue<Tuple<byte[], SendType>>();
 
@@ -56,8 +53,8 @@ public class ConnectedClient
     {
         Client = client;
         _server = server;
-        Task.Run((Action)ProcessIncomingPackets);
-        Task.Run((Action)SendPackets);
+        Task.Run((Action)ProcessIncomingPackets); // запускаем процесс принятие пакетов
+        Task.Run((Action)SendPackets); // процесс отправки пакетов
     }
 
     private void ProcessIncomingPackets()
@@ -84,21 +81,15 @@ public class ConnectedClient
             }
             catch
             {
-                /*_server.Clients.Remove(this);
-                var LeftMessage = new PlayersCountMessage()
-                {
-                    PlayersCount = _server.Clients.Count,
-                };
-                var Left = ZPacketConverter.Serialize(ZPacketType.GetPlayerCount, LeftMessage).ToPacket();
-                QueuePacketSend(Left, SendType.ToOther);
-                Client.Close();
-                Client.Dispose();*/
+                
             }
         }
     }
 
     private void ProcessIncomingPacket(ZPacket packet)
     {
+        //здесь входяшие пакеты информации обрабатываются в зависимости от типа сообщения
+        //грубо говоря - здесь логика сервера для отправки информации клиентам
         var type = ZPacketTypeManager.GetTypeFromPacket(packet);
 
         switch (type)
@@ -141,7 +132,6 @@ public class ConnectedClient
                 break;
 
             case ZPacketType.ReadyToPlay:
-                //var readyMessage = // Принимает сообщение
                 IsReady = true;
                 if (_server.Clients.All(c => c.IsReady))
                 {
@@ -259,6 +249,7 @@ public class ConnectedClient
 
     public void QueuePacketSend(byte[] packet, SendType sendType = SendType.ToClient)
     {
+        //добавляет пакеты в очередь для отправки
         if (packet.Length > 256)
         {
             throw new Exception("Max packet size is 256 bytes.");
@@ -269,6 +260,7 @@ public class ConnectedClient
 
     private void SendPackets()
     {
+        //отсылает пакеты клиенту
         while (true)
         {
             if (_packetSendingQueue.Count == 0)
@@ -281,20 +273,20 @@ public class ConnectedClient
 
             switch (packet.Item2)
             {
-                case SendType.ToAll:
+                case SendType.ToAll: // отсылает всем подключенным клиентам
                     foreach (var client in _server.Clients)
                     {
                         client.Client.Send(packet.Item1);
                     }
                     break;
-                case SendType.ToOther:
+                case SendType.ToOther: // всем кроме текущего
                     foreach (var client in _server.Clients)
                     {
                         if (client.Id != Id)
                             client.Client.Send(packet.Item1);
                     }
                     break;
-                case SendType.ToClient:
+                case SendType.ToClient: // текущему
                     Client.Send(packet.Item1);
                     break;
                 default:
@@ -307,6 +299,7 @@ public class ConnectedClient
 
     public static void Shuffle<T>(IList<T> list)
     {
+        //тасует колоду
         var rng = new Random();
         for (int i = list.Count - 1; i > 0; i--)
         {

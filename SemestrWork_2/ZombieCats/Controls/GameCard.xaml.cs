@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 namespace ZombieCats.Controls;
 
+// класс Карты
 public partial class GameCard : ContentView, INotifyPropertyChanged
 {
 	public GameCard()
@@ -18,6 +19,7 @@ public partial class GameCard : ContentView, INotifyPropertyChanged
         HeightRequest = 150;
         WidthRequest = 100;
 
+        //в зависимости от типа карты - назначаем ему изображение
         switch (type)
         {
             case 0: // nothing
@@ -51,22 +53,4 @@ public partial class GameCard : ContentView, INotifyPropertyChanged
             PropertyChanged?.Invoke(this , new PropertyChangedEventArgs("CardImageSource"));
         }
     }
-
-
-
-    /*// 1. Объявляем BindableProperty
-    public static readonly BindableProperty BindTextProperty =
-        BindableProperty.Create(
-            propertyName: nameof(BindText),
-            returnType: typeof(string),
-            declaringType: typeof(TestControl),
-            defaultValue: string.Empty,
-            defaultBindingMode: BindingMode.OneWay);
-
-    // 2. CLR-обёртка (опционально, но рекомендуется)
-    public string BindText
-    {
-        get => (string)GetValue(BindTextProperty);
-        set => SetValue(BindTextProperty, value);
-    }*/
 }

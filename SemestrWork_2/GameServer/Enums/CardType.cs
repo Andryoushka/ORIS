@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Enums;
 
+//Здесь хранятся типы карточек, что мы генерируем в колоде
 public enum CardType
 {
     Nothing,

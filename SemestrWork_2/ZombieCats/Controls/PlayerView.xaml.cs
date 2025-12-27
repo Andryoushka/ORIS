@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 namespace ZombieCats.Controls;
 
+// класс Иконки Игрока
 public partial class PlayerView : ContentView, INotifyPropertyChanged
 {
 	public PlayerView()
@@ -12,7 +13,7 @@ public partial class PlayerView : ContentView, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private string _name = "Player";
+    private string _name = "Player"; // имя игрока
 	public string PlayerName
 	{
 		get
@@ -27,8 +28,8 @@ public partial class PlayerView : ContentView, INotifyPropertyChanged
         }
 	}
 
-	private Brush _color = Brush.Grey;
-	private bool _isDead = false;
+	private Brush _color = Brush.Grey; // цвет рамки
+	private bool _isDead = false; // умер?
 
     public Brush PlayerBorderColor
 	{
@@ -42,6 +43,7 @@ public partial class PlayerView : ContentView, INotifyPropertyChanged
 
 	public void ChangeColor(Brush brush)
 	{
+		// меняем цвет рамки, если игрок не умер
 		if (_isDead)
 			return;
 
@@ -50,6 +52,7 @@ public partial class PlayerView : ContentView, INotifyPropertyChanged
 
 	public void Dead()
 	{
+		// констатируем смэрть
         _isDead = true;
     }
 }

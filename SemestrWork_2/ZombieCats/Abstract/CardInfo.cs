@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using GameServer.Enums;
 
 namespace ZombieCats.Abstract;
-
+//здесь находятся классы для упрощения работы с информации о доступных картах
 public class CardInformer
 {
     public static CardInfo GetCardInfo(string cardType)

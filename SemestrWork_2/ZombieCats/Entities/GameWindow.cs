@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZombieCats.Entities;
 
+// класс Игрового Окна
 public class GameWindow : Window
 {
     public GameWindow() : base()
@@ -19,8 +20,8 @@ public class GameWindow : Window
         //Height = 1080;
     }
 
-    public static event Action GameWindowClosing;
-    public static event Action GameWindowCreated;
+    public static event Action GameWindowClosing; // событие при закрытии игры
+    public static event Action GameWindowCreated; // событие при запуске игры
 
     protected override void OnDestroying()
     {

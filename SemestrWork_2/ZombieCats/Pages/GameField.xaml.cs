@@ -9,20 +9,21 @@ using ZProtocol.Serializator;
 
 namespace ZombieCats;
 
+// класс Игрового Поля
 public partial class GameField : ContentPage
 {
 	public GameField(ZClient player)
 	{
-		_player = player;
+		_player = player; // клиент - игрок
 
-		Arm = new ObservableCollection<GameCard>();
-        Players = new ObservableCollection<PlayerView>();
-        PlayedCards = new ObservableCollection<GameCard>();
+		Arm = new ObservableCollection<GameCard>(); // рука игрока
+        Players = new ObservableCollection<PlayerView>(); // список игроков
+        PlayedCards = new ObservableCollection<GameCard>(); // использованные карты
 
         BindingContext = this;
 		InitializeComponent();
-		_player.OnPacketRecieve += PlayerActions;
-		Deck.DeckTapped += (s, e) =>
+		_player.OnPacketRecieve += PlayerActions; // обрабатываем всю логику входящих пакетов
+		Deck.DeckTapped += (s, e) => // логика при взятии карты с колоды (на нажатие колоды)
 		{
             if (!_canMakeAction)
                 return;
@@ -32,6 +33,7 @@ public partial class GameField : ContentPage
                         new ZMessage { }).ToPacket());
             _canMakeAction = false;
         };
+        // устанавливаем цвета для кнопок использования карт
         Use_Button.BackgroundColor = DISABLE_BUTTON;
         Exchange_Button.BackgroundColor = DISABLE_BUTTON;
         ExchangeDefinite_Button.BackgroundColor = DISABLE_BUTTON;
@@ -40,11 +42,11 @@ public partial class GameField : ContentPage
     private ZClient _player;
     private bool _canMakeAction = false; // блокирует руку для действий с картами
     private bool _readyToPlay = false; // отвечает за темный экран игры
-    private int _playerIndex = 0;
+    private int _playerIndex = 0; // индекс игрока
     private bool _playerIsDead = false;
-    private int Index = 0;
-    private readonly Color ENABLE_BUTTON = Color.FromArgb("#c0dc87");
-    private readonly Color DISABLE_BUTTON = Color.FromArgb("#3ba273");
+    private int Index = 0; // не важно
+    private readonly Color ENABLE_BUTTON = Color.FromArgb("#c0dc87"); // цвет активированной карты
+    private readonly Color DISABLE_BUTTON = Color.FromArgb("#3ba273");// цвет не активированной карты
 
     public ObservableCollection<PlayerView> Players {  get; set; }
     public ObservableCollection<GameCard> PlayedCards { get; set; }
@@ -52,6 +54,7 @@ public partial class GameField : ContentPage
 
     private void PlayerActions(byte[] obj)
     {
+        //обрабатываем пакеты с информацией и в зависимости от типа сообщения реагируем на них
         var packet = ZPacket.Parse(obj);
         if (packet == null)
             return;
@@ -184,6 +187,7 @@ public partial class GameField : ContentPage
     }
     protected override void OnAppearing()
     {
+        // событие при загрузки элементов игрового поля (игра загрузилась и игрок готов начать)
         base.OnAppearing();
 
 		var message = new ZMessage()
@@ -196,6 +200,7 @@ public partial class GameField : ContentPage
 
     private void UseCard(object sender, EventArgs e)
     {
+        // используем карту
         if (!_canMakeAction)
             return;
         var arm = Arm_Collection.SelectedItems.Cast<GameCard>();
@@ -236,17 +241,20 @@ public partial class GameField : ContentPage
     }
     private void ExchangeCard(object sender, EventArgs e)
     {
+        // здесь должен быть обмен двух карт
         if (!_canMakeAction)
             return;
     }
     private void ExchangeDefiniteCard(object sender, EventArgs e)
     {
+        // здесь должен быть обмен трех карт
         if (!_canMakeAction)
             return;
     }
 
     private void Arm_Collection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        // обработчик выбранного количества карт в руке
         var select = e.CurrentSelection;
 
         switch (select.Count)

@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace ZombieCats;
 
+// класс Клиента
 public class ZClient
 {
+    // событие получения пакетов с информацией (для каждого игрового экрана назначаем разную логику обработки)
     public Action<byte[]> OnPacketRecieve { get; set; }
 
     private readonly Queue<byte[]> _packetSendingQueue = new Queue<byte[]>();
 
-    private Socket _socket;
+    private Socket _socket; // сокет клиента
     private IPEndPoint _serverEndPoint;
 
     public void Connect(string ip, int port)
     {
+        // подключаемся к серверу
         Connect(new IPEndPoint(IPAddress.Parse(ip), port));
     }
 
@@ -29,15 +32,17 @@ public class ZClient
         var ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
         var ipAddress = ipHostInfo.AddressList[1]; // [0]
 
+        // здесь создаем сокет клиента и подключаемся к серверу
         _socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         _socket.Connect(_serverEndPoint);
 
-        Task.Run((Action)RecievePackets);
-        Task.Run((Action)SendPackets);
+        Task.Run((Action)RecievePackets); // поток приема пакетов
+        Task.Run((Action)SendPackets); // поток отправки пакетов
     }
 
     public void QueuePacketSend(byte[] packet)
     {
+        // очередь отправки пакетов
         if (packet.Length > 256)
         {
             throw new Exception("Max packet size is 256 bytes.");
@@ -48,6 +53,7 @@ public class ZClient
 
     private void RecievePackets()
     {
+        // пока клиент подключен - слушаем входящие сообщения
         while (_socket.Connected)
         {
             try
@@ -74,6 +80,7 @@ public class ZClient
 
     private void SendPackets()
     {
+        // отправляем сообщения
         while (_socket.Connected)
         {
             try

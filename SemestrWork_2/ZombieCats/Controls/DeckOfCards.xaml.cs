@@ -1,5 +1,6 @@
 namespace ZombieCats.Controls;
 
+// класс Колоды
 public partial class DeckOfCards : ContentView
 {
 	public DeckOfCards()
@@ -12,22 +13,15 @@ public partial class DeckOfCards : ContentView
 	private double _width = 100;
 	private double _height = 150;
 
-	public event EventHandler? DeckTapped;
-	private bool _canClick = false;
+	public event EventHandler? DeckTapped; // обработчик нажатия на колоду
+	private bool _canClick = false; // можем ли взять карту?
 
     private void Deck_Clicked(object sender, EventArgs e)
     {
-		/*
-		 * Отправка запроса на получение карты и завершение хода
-		 * от определенного игрока
-		 * Сервер -> продвигает очередь
-		 * 
-		 * Визуальная отдача нажатия
-		*/
-
 		var curW = Width;
 		var vurH = Height;
         
+		// берем карту из колоды - логика в класе GameField
         DeckTapped?.Invoke(button_Deck, EventArgs.Empty);
     }
 }
